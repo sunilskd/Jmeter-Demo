@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -43,7 +43,6 @@
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="KYC-Aggregate-Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
-            <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
               <time>true</time>
               <latency>true</latency>
@@ -76,7 +75,6 @@
         <kg.apc.jmeter.perfmon.PerfMonCollector guiclass="kg.apc.jmeter.vizualizers.PerfMonGui" testclass="kg.apc.jmeter.perfmon.PerfMonCollector" testname="KYC-QA-Performance-Monitoring-Metrics-Collector" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
-            <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
               <time>true</time>
               <latency>true</latency>
@@ -138,7 +136,7 @@
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">4</stringProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </LoopController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="login" enabled="true">
@@ -149,7 +147,7 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">/kyc-webapp/api/testController/testLogin?username=testkyc</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -161,10 +159,68 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Content-Type" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0</stringProp>
+                </elementProp>
+                <elementProp name="Pragma" elementType="Header">
+                  <stringProp name="Header.name">Pragma</stringProp>
+                  <stringProp name="Header.value">no-cache</stringProp>
+                </elementProp>
+                <elementProp name="Cache-Control" elementType="Header">
+                  <stringProp name="Header.name">Cache-Control</stringProp>
+                  <stringProp name="Header.value">no-cache</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value"></stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Token Value Extractor" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">tokenValue</stringProp>
+              <stringProp name="RegexExtractor.regex">(?&lt;=tokenValue:  )(.*)(?=  id)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default"></stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Authentication ID Extractor" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">id</stringProp>
+              <stringProp name="RegexExtractor.regex">(\d+)(?!.*\d)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default"></stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="login-results" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
-                <name>saveConfig</name>
                 <value class="SampleSaveConfiguration">
                   <time>true</time>
                   <latency>true</latency>
@@ -203,9 +259,9 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/owners/legalEntity/${id}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/owners/legalEntity/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -215,10 +271,47 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="id" elementType="Header">
+                  <stringProp name="Header.name">id</stringProp>
+                  <stringProp name="Header.value">${id}</stringProp>
+                </elementProp>
+                <elementProp name="authtoken" elementType="Header">
+                  <stringProp name="Header.name">tokenValue</stringProp>
+                  <stringProp name="Header.value">${tokenValue}</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0</stringProp>
+                </elementProp>
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value"></stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
             <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="true">
               <stringProp name="filename">owners.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="variableNames">id</stringProp>
+              <stringProp name="variableNames">fid</stringProp>
               <stringProp name="delimiter">,</stringProp>
               <boolProp name="quotedData">false</boolProp>
               <boolProp name="recycle">true</boolProp>
@@ -229,7 +322,6 @@
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="owners-results" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
-                <name>saveConfig</name>
                 <value class="SampleSaveConfiguration">
                   <time>true</time>
                   <latency>true</latency>
@@ -268,9 +360,9 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/legalEntity/${id}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/legalEntity/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -284,7 +376,7 @@
               <stringProp name="TestPlan.comments">		</stringProp>
               <stringProp name="filename">subsidiaries.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="variableNames">id</stringProp>
+              <stringProp name="variableNames">fid</stringProp>
               <stringProp name="delimiter">,</stringProp>
               <boolProp name="quotedData">false</boolProp>
               <boolProp name="recycle">true</boolProp>
@@ -295,7 +387,6 @@
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="subsidiaries-results" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
-                <name>saveConfig</name>
                 <value class="SampleSaveConfiguration">
                   <time>true</time>
                   <latency>true</latency>
@@ -334,9 +425,9 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/legalEntities/legalEntity/${id}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/legalEntities/legalEntity/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -350,7 +441,7 @@
               <stringProp name="TestPlan.comments">		</stringProp>
               <stringProp name="filename">enityDetails.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="variableNames">id</stringProp>
+              <stringProp name="variableNames">fid</stringProp>
               <stringProp name="delimiter">,</stringProp>
               <boolProp name="quotedData">false</boolProp>
               <boolProp name="recycle">true</boolProp>
@@ -361,7 +452,6 @@
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="enity-details-results" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
-                <name>saveConfig</name>
                 <value class="SampleSaveConfiguration">
                   <time>true</time>
                   <latency>true</latency>
@@ -400,9 +490,9 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/groupstructure/legalEntity/${id}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/groupstructure/legalEntity/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -416,7 +506,7 @@
               <stringProp name="TestPlan.comments">		</stringProp>
               <stringProp name="filename">groupStructure.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="variableNames">id</stringProp>
+              <stringProp name="variableNames">fid</stringProp>
               <stringProp name="delimiter">,</stringProp>
               <boolProp name="quotedData">false</boolProp>
               <boolProp name="recycle">true</boolProp>
@@ -427,7 +517,6 @@
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="group-structure-results-tree" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
-                <name>saveConfig</name>
                 <value class="SampleSaveConfiguration">
                   <time>true</time>
                   <latency>true</latency>
