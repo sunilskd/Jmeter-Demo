@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.9" jmeter="3.0 r1743807">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1466433998000</longProp>
+        <longProp name="ThreadGroup.end_time">1466433998000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <stringProp name="CookieManager.policy">standard</stringProp>
+          <stringProp name="CookieManager.implementation">org.apache.jmeter.protocol.http.control.HC4CookieHandler</stringProp>
+        </CookieManager>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="filename">UBODetails.csv</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="variableNames">username,ownersummary,ownersgraph,subsidiariessummary,subsidiariesgraph,entitydetails,groupstructuresummary,groupsummarygraph</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.FirefoxDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig" testname="jp@gc - Firefox Driver Config" enabled="true">
+          <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
+          <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
+          <stringProp name="WebDriverConfig.http_host"></stringProp>
+          <intProp name="WebDriverConfig.http_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
+          <stringProp name="WebDriverConfig.https_host"></stringProp>
+          <intProp name="WebDriverConfig.https_port">8080</intProp>
+          <stringProp name="WebDriverConfig.ftp_host"></stringProp>
+          <intProp name="WebDriverConfig.ftp_port">8080</intProp>
+          <stringProp name="WebDriverConfig.socks_host"></stringProp>
+          <intProp name="WebDriverConfig.socks_port">8080</intProp>
+          <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
+          <boolProp name="WebDriverConfig.maximize_browser">true</boolProp>
+          <boolProp name="WebDriverConfig.reset_per_iteration">false</boolProp>
+          <boolProp name="WebDriverConfig.dev_mode">true</boolProp>
+          <boolProp name="FirefoxDriverConfig.general.useragent.override.enabled">false</boolProp>
+          <boolProp name="FirefoxDriverConfig.network.negotiate-auth.allow-insecure-ntlm-v1">false</boolProp>
+          <collectionProp name="FirefoxDriverConfig.general.extensions"/>
+          <collectionProp name="FirefoxDriverConfig.general.preferences"/>
+        </com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UBO- Loading Login Page" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser, 50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+WDS.browser.get(&apos;https://internal-uboqa-web-1999720210.us-east-1.elb.amazonaws.com/kyc-webapp/#/home&apos;)
+// wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+
+WDS.sampleResult.sampleEnd()
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="UBO-Log into application" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser, 5000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+wait.until(conditions.presenceOfElementLocated(pkg.By.linkText(&apos;Login&apos;)))
+var loginLink=WDS.browser.findElement(pkg.By.linkText(&apos;Login&apos;))
+loginLink.click();
+
+//Enter username
+wait.until(conditions.presenceOfElementLocated(pkg.By.id(&apos;login&apos;)))
+var ulogin = WDS.browser.findElement(pkg.By.id(&apos;login&apos;))
+ulogin.sendKeys([&apos;${username}&apos;])
+
+//Clicking on login button
+// wait.until(conditions.presenceOfElementLocated(pkg.By.linkText(&apos;Login&apos;)))
+var loginButton=WDS.browser.findElements(pkg.By.tagName(&apos;button&apos;)).get(0);
+loginButton.click();
+var wait1 = new support_ui.WebDriverWait(WDS.browser, 50000)
+var homeLink = WDS.browser.findElement(pkg.By.linkText(&apos;Home&apos;))
+homeLink.click();
+wait.until(conditions.presenceOfElementLocated(pkg.By.tagName(&apos;h1&apos;)))
+WDS.browser.findElements(pkg.By.tagName(&apos;a&apos;)).get(1).click();
+WDS.sampleResult.sampleEnd()
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+          <SampleTimeout guiclass="SampleTimeoutGui" testclass="SampleTimeout" testname="Sample Timeout" enabled="true">
+            <stringProp name="InterruptTimer.timeout">10000</stringProp>
+          </SampleTimeout>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Owners Summary" enabled="true">
+          <stringProp name="WebDriverSampler.script">
+// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${ownersummary}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Owners Graph" enabled="true">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+var wait = new support_ui.WebDriverWait(WDS.browser,100000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+WDS.sampleResult.sampleStart()
+WDS.browser.get([&apos;${ownersgraph}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.presenceOfElementLocated(pkg.By.cssSelector(&apos;g#own&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Owners Graph Side Panel" enabled="false">
+          <stringProp name="WebDriverSampler.script">var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+var wait = new support_ui.WebDriverWait(WDS.browser,100000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+
+WDS.browser.get([&apos;${ownersgraph}&apos;])
+
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleStart()
+var nodeClick=WDS.browser.findElement(pkg.By.xpath(&quot;.//*[local-name()=&apos;g&apos;][@id=&apos;0&apos;]/*[local-name()=&apos;text&apos;][1]/*[local-name()=&apos;a&apos;]&quot;))
+nodeClick.click();
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Subsidiary Summary" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${subsidiariessummary}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+
+WDS.sampleResult.sampleEnd()
+
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Subsidiary Graph" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${subsidiariesgraph}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+
+
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Entity Details" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${entitydetails}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+
+
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Group Structure Summary" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${groupstructuresummary}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+
+
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="Group Structure Graph" enabled="true">
+          <stringProp name="WebDriverSampler.script">// We import java packages in Javascript
+var pkg = JavaImporter(org.openqa.selenium)
+var support_ui = JavaImporter(org.openqa.selenium.support.ui.WebDriverWait)
+// We will timeout waits after 5 seconds
+var wait = new support_ui.WebDriverWait(WDS.browser,50000)
+var conditions = org.openqa.selenium.support.ui.ExpectedConditions
+// we start the timing
+
+WDS.sampleResult.sampleStart()
+
+WDS.browser.get([&apos;${groupsummarygraph}&apos;])
+wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+WDS.sampleResult.sampleEnd()
+
+
+</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">javascript</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="UBO-LoadingLoginPageTime" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">C:\Users\shahc1\Desktop\Performance\apache-jmeter-3.0\bin\UBO_performance.jmx</stringProp>
+          <stringProp name="RespTimeGraph.graphtitle">UBO-LoadingLoginPageTime</stringProp>
+          <stringProp name="RespTimeGraph.interval">100</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ThreadsStateOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Active Threads Over Time" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <longProp name="interval_grouping">500</longProp>
+          <boolProp name="graph_aggregated">false</boolProp>
+          <stringProp name="include_sample_labels"></stringProp>
+          <stringProp name="exclude_sample_labels"></stringProp>
+          <stringProp name="start_offset"></stringProp>
+          <stringProp name="end_offset"></stringProp>
+          <boolProp name="include_checkbox_state">false</boolProp>
+          <boolProp name="exclude_checkbox_state">false</boolProp>
+        </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
+1467301768195,1546,UBO- Loading Login Page,200,OK,Thread Group 1-3,text,true,,4135,10,10,0,0
+1467301769767,2221,UBO-Log into application,200,OK,Thread Group 1-3,text,true,,4136,10,10,0,0
+1467301771998,1770,Owners Summary,200,OK,Thread Group 1-3,text,true,,12708,10,10,0,0
+1467301773812,1070,Owners Graph,200,OK,Thread Group 1-3,text,true,,56188,10,10,0,0
+1467301773909,1911,UBO- Loading Login Page,200,OK,Thread Group 1-4,text,true,,4135,10,10,0,0
+1467301774916,906,Subsidiary Summary,200,OK,Thread Group 1-3,text,true,,13316,10,10,0,0
+1467301775849,1099,Subsidiary Graph,200,OK,Thread Group 1-3,text,true,,43017,10,10,0,0
+1467301776988,634,Entity Details,200,OK,Thread Group 1-3,text,true,,6566,10,10,0,0
+1467301775835,1983,UBO-Log into application,200,OK,Thread Group 1-4,text,true,,4136,10,10,0,0
+1467301777640,597,Group Structure Summary,200,OK,Thread Group 1-3,text,true,,18856,10,10,0,0
+1467301777842,1054,Owners Summary,200,OK,Thread Group 1-4,text,true,,4008,10,10,0,0
+1467301778252,1222,Group Structure Graph,200,OK,Thread Group 1-3,text,true,,87191,10,10,0,0
+1467301778908,2710,Owners Graph,200,OK,Thread Group 1-4,text,true,,534780,9,9,0,0
+1467301781336,1652,UBO- Loading Login Page,200,OK,Thread Group 1-2,text,true,,4135,9,9,0,0
+1467301781834,2416,Subsidiary Summary,200,OK,Thread Group 1-4,text,true,,480450,9,9,0,0
+1467301783018,2159,UBO-Log into application,200,OK,Thread Group 1-2,text,true,,4136,9,9,0,0
+1467301785192,1050,Owners Summary,200,OK,Thread Group 1-2,text,true,,12708,9,9,0,0
+1467301786254,1330,Owners Graph,200,OK,Thread Group 1-2,text,true,,53535,9,9,0,0
+1467301787613,673,Subsidiary Summary,200,OK,Thread Group 1-2,text,true,,13316,9,9,0,0
+1467301787442,1582,UBO- Loading Login Page,200,OK,Thread Group 1-1,text,true,,4135,9,9,0,0
+1467301784398,4083,Subsidiary Graph,200,OK,Thread Group 1-4,text,true,,2169383,9,9,0,0
+1467301788312,1066,Subsidiary Graph,200,OK,Thread Group 1-2,text,true,,42920,9,9,0,0
+1467301789415,96,Entity Details,200,OK,Thread Group 1-2,text,true,,6566,9,9,0,0
+1467301789269,667,Entity Details,200,OK,Thread Group 1-4,text,true,,27718,9,9,0,0
+1467301789522,536,Group Structure Summary,200,OK,Thread Group 1-2,text,true,,18856,9,9,0,0
+1467301790075,1070,Group Structure Graph,200,OK,Thread Group 1-2,text,true,,86809,9,9,0,0
+1467301789039,2367,UBO-Log into application,200,OK,Thread Group 1-1,text,true,,4136,8,8,0,0
+1467301791424,1066,Owners Summary,200,OK,Thread Group 1-1,text,true,,10857,8,8,0,0
+1467301792502,2279,Owners Graph,200,OK,Thread Group 1-1,text,true,,534780,8,8,0,0
+1467301794209,1697,UBO- Loading Login Page,200,OK,Thread Group 1-10,text,true,,4135,8,8,0,0
+1467301789956,6497,Group Structure Summary,200,OK,Thread Group 1-4,text,true,,1029808,8,8,0,0
+1467301795002,2923,Subsidiary Summary,200,OK,Thread Group 1-1,text,true,,480450,8,8,0,0
+1467301795919,3032,UBO-Log into application,200,OK,Thread Group 1-10,text,true,,4136,8,8,0,0
+1467301798962,1116,Owners Summary,200,OK,Thread Group 1-10,text,true,,12708,8,8,0,0
+1467301800093,2629,Owners Graph,200,OK,Thread Group 1-10,text,true,,56404,8,8,0,0
+1467301798065,4028,Subsidiary Graph,200,OK,Thread Group 1-1,text,true,,2169383,8,8,0,0
+1467301796871,4957,Group Structure Graph,200,OK,Thread Group 1-4,text,true,,2698970,8,8,0,0
+1467301802905,702,Subsidiary Summary,200,OK,Thread Group 1-10,text,true,,13316,7,7,0,0
+1467301802983,1266,Entity Details,200,OK,Thread Group 1-1,text,true,,27718,7,7,0,0
+1467301803621,615,Subsidiary Graph,200,OK,Thread Group 1-10,text,true,,42660,7,7,0,0
+1467301801626,3076,UBO- Loading Login Page,200,OK,Thread Group 1-9,text,true,,4135,7,7,0,0
+1467301804269,545,Entity Details,200,OK,Thread Group 1-10,text,true,,6566,7,7,0,0
+1467301804827,667,Group Structure Summary,200,OK,Thread Group 1-10,text,true,,18856,7,7,0,0
+1467301804720,1971,UBO-Log into application,200,OK,Thread Group 1-9,text,true,,4136,7,7,0,0
+1467301805508,1300,Group Structure Graph,200,OK,Thread Group 1-10,text,true,,86827,7,7,0,0
+1467301806712,1651,Owners Summary,200,OK,Thread Group 1-9,text,true,,10857,6,6,0,0
+1467301808084,1964,UBO- Loading Login Page,200,OK,Thread Group 1-8,text,true,,4135,6,6,0,0
+1467301808375,2099,Owners Graph,200,OK,Thread Group 1-9,text,true,,534780,6,6,0,0
+1467301804269,6081,Group Structure Summary,200,OK,Thread Group 1-1,text,true,,1029808,6,6,0,0
+1467301810062,2170,UBO-Log into application,200,OK,Thread Group 1-8,text,true,,4136,6,6,0,0
+1467301812243,1085,Owners Summary,200,OK,Thread Group 1-8,text,true,,12708,6,6,0,0
+1467301810684,3176,Subsidiary Summary,200,OK,Thread Group 1-9,text,true,,480450,6,6,0,0
+1467301813355,704,Owners Graph,200,OK,Thread Group 1-8,text,true,,56022,6,6,0,0
+1467301814104,620,Subsidiary Summary,200,OK,Thread Group 1-8,text,true,,13316,6,6,0,0
+1467301814736,608,Subsidiary Graph,200,OK,Thread Group 1-8,text,true,,42889,6,6,0,0
+1467301815377,552,Entity Details,200,OK,Thread Group 1-8,text,true,,6566,6,6,0,0
+1467301815941,542,Group Structure Summary,200,OK,Thread Group 1-8,text,true,,18856,6,6,0,0
+1467301810835,4950,Group Structure Graph,200,OK,Thread Group 1-1,text,true,,2698970,6,6,0,0
+1467301816045,1454,UBO- Loading Login Page,200,OK,Thread Group 1-7,text,true,,4135,5,5,0,0
+1467301816501,1453,Group Structure Graph,200,OK,Thread Group 1-8,text,true,,82419,5,5,0,0
+1467301814037,4255,Subsidiary Graph,200,OK,Thread Group 1-9,text,true,,2169383,4,4,0,0
+1467301819200,692,Entity Details,200,OK,Thread Group 1-9,text,true,,27718,4,4,0,0
+1467301817515,2727,UBO-Log into application,200,OK,Thread Group 1-7,text,true,,4136,4,4,0,0
+1467301820332,1579,Owners Summary,200,OK,Thread Group 1-7,text,true,,10857,4,4,0,0
+1467301821936,2196,Owners Graph,200,OK,Thread Group 1-7,text,true,,534780,4,4,0,0
+1467301823841,1735,UBO- Loading Login Page,200,OK,Thread Group 1-6,text,true,,4135,4,4,0,0
+1467301819916,5989,Group Structure Summary,200,OK,Thread Group 1-9,text,true,,1029808,4,4,0,0
+1467301824507,2292,Subsidiary Summary,200,OK,Thread Group 1-7,text,true,,480450,4,4,0,0
+1467301825588,2881,UBO-Log into application,200,OK,Thread Group 1-6,text,true,,4136,4,4,0,0
+1467301828483,657,Owners Summary,200,OK,Thread Group 1-6,text,true,,4008,4,4,0,0
+1467301829156,2620,Owners Graph,200,OK,Thread Group 1-6,text,true,,55941,4,4,0,0
+1467301826939,4249,Subsidiary Graph,200,OK,Thread Group 1-7,text,true,,2169383,4,4,0,0
+1467301826333,5023,Group Structure Graph,200,OK,Thread Group 1-9,text,true,,2698970,4,4,0,0
+1467301830571,2301,UBO- Loading Login Page,200,OK,Thread Group 1-5,text,true,,4135,3,3,0,0
+1467301832279,631,Entity Details,200,OK,Thread Group 1-7,text,true,,27718,3,3,0,0
+1467301831930,1192,Subsidiary Summary,200,OK,Thread Group 1-6,text,true,,13316,3,3,0,0
+1467301832885,1688,UBO-Log into application,200,OK,Thread Group 1-5,text,true,,4136,3,3,0,0
+1467301833133,1581,Subsidiary Graph,200,OK,Thread Group 1-6,text,true,,42909,3,3,0,0
+1467301834816,127,Entity Details,200,OK,Thread Group 1-6,text,true,,6566,3,3,0,0
+1467301834591,1101,Owners Summary,200,OK,Thread Group 1-5,text,true,,4008,3,3,0,0
+1467301834953,1060,Group Structure Summary,200,OK,Thread Group 1-6,text,true,,18856,3,3,0,0
+1467301836028,1573,Group Structure Graph,200,OK,Thread Group 1-6,text,true,,86198,3,3,0,0
+1467301832927,6525,Group Structure Summary,200,OK,Thread Group 1-7,text,true,,1029808,2,2,0,0
+1467301835713,5064,Owners Graph,200,OK,Thread Group 1-5,text,true,,534780,2,2,0,0
+1467301840947,3361,Subsidiary Summary,200,OK,Thread Group 1-5,text,true,,480450,2,2,0,0
+1467301839870,5618,Group Structure Graph,200,OK,Thread Group 1-7,text,true,,2698970,2,2,0,0
+1467301844451,4822,Subsidiary Graph,200,OK,Thread Group 1-5,text,true,,2169383,1,1,0,0
+1467301851160,575,Entity Details,200,OK,Thread Group 1-5,text,true,,27718,1,1,0,0
+1467301851751,5376,Group Structure Summary,200,OK,Thread Group 1-5,text,true,,1029808,1,1,0,0
+1467301857519,4577,Group Structure Graph,200,OK,Thread Group 1-5,text,true,,2698970,1,1,0,0
+2016/06/30 10:55:44,1485,UBO- Loading Login Page,200,OK,Thread Group 1-2,text,true,,4135,10,10,0,0
+2016/06/30 10:55:45,2264,UBO-Log into application,200,OK,Thread Group 1-2,text,true,,4136,10,10,0,0
+2016/06/30 10:55:48,1067,Owners Summary,200,OK,Thread Group 1-2,text,true,,14334,10,10,0,0
+2016/06/30 10:55:49,1493,Owners Graph,200,OK,Thread Group 1-2,text,true,,53535,10,10,0,0
+2016/06/30 10:55:50,569,Subsidiary Summary,200,OK,Thread Group 1-2,text,true,,13316,10,10,0,0
+2016/06/30 10:55:50,1529,UBO- Loading Login Page,200,OK,Thread Group 1-1,text,true,,4135,10,10,0,0
+2016/06/30 10:55:51,1168,Subsidiary Graph,200,OK,Thread Group 1-2,text,true,,43033,10,10,0,0
+2016/06/30 10:55:52,560,Entity Details,200,OK,Thread Group 1-2,text,true,,6566,10,10,0,0
+2016/06/30 10:55:53,1077,Group Structure Summary,200,OK,Thread Group 1-2,text,true,,18856,10,10,0,0
+2016/06/30 10:55:51,2528,UBO-Log into application,200,OK,Thread Group 1-1,text,true,,4136,10,10,0,0
+2016/06/30 10:55:54,1098,Group Structure Graph,200,OK,Thread Group 1-2,text,true,,86496,10,10,0,0
+2016/06/30 10:55:54,1588,Owners Summary,200,OK,Thread Group 1-1,text,true,,10857,9,9,0,0
+2016/06/30 10:55:56,1634,UBO- Loading Login Page,200,OK,Thread Group 1-10,text,true,,4135,9,9,0,0
+2016/06/30 10:55:56,2309,Owners Graph,200,OK,Thread Group 1-1,text,true,,534780,9,9,0,0
+2016/06/30 10:55:58,2337,UBO-Log into application,200,OK,Thread Group 1-10,text,true,,4136,9,9,0,0
+2016/06/30 10:55:58,2388,Subsidiary Summary,200,OK,Thread Group 1-1,text,true,,480450,9,9,0,0
+2016/06/30 10:56:00,1068,Owners Summary,200,OK,Thread Group 1-10,text,true,,14334,9,9,0,0
+2016/06/30 10:56:01,720,Owners Graph,200,OK,Thread Group 1-10,text,true,,55847,9,9,0,0
+2016/06/30 10:56:02,566,Subsidiary Summary,200,OK,Thread Group 1-10,text,true,,13316,9,9,0,0
+2016/06/30 10:56:03,560,Subsidiary Graph,200,OK,Thread Group 1-10,text,true,,42888,9,9,0,0
+2016/06/30 10:56:03,550,Entity Details,200,OK,Thread Group 1-10,text,true,,6566,9,9,0,0
+2016/06/30 10:56:04,613,Group Structure Summary,200,OK,Thread Group 1-10,text,true,,18856,9,9,0,0
+2016/06/30 10:56:01,3926,Subsidiary Graph,200,OK,Thread Group 1-1,text,true,,2169383,9,9,0,0
+2016/06/30 10:56:04,1561,UBO- Loading Login Page,200,OK,Thread Group 1-9,text,true,,4135,9,9,0,0
+2016/06/30 10:56:04,1077,Group Structure Graph,200,OK,Thread Group 1-10,text,true,,87024,9,9,0,0
+2016/06/30 10:56:05,793,Entity Details,200,OK,Thread Group 1-1,text,true,,27718,8,8,0,0
+2016/06/30 10:56:05,2705,UBO-Log into application,200,OK,Thread Group 1-9,text,true,,4136,8,8,0,0
+2016/06/30 10:56:08,1214,Owners Summary,200,OK,Thread Group 1-9,text,true,,10857,8,8,0,0
+2016/06/30 10:56:06,4367,Group Structure Summary,200,OK,Thread Group 1-1,text,true,,1029808,8,8,0,0
+2016/06/30 10:56:09,2270,Owners Graph,200,OK,Thread Group 1-9,text,true,,534780,8,8,0,0
+2016/06/30 10:56:12,2188,UBO- Loading Login Page,200,OK,Thread Group 1-8,text,true,,4135,8,8,0,0
+2016/06/30 10:56:12,2501,Subsidiary Summary,200,OK,Thread Group 1-9,text,true,,480450,8,8,0,0
+2016/06/30 10:56:14,2295,UBO-Log into application,200,OK,Thread Group 1-8,text,true,,4136,8,8,0,0
+2016/06/30 10:56:11,4902,Group Structure Graph,200,OK,Thread Group 1-1,text,true,,2698970,8,8,0,0
+2016/06/30 10:56:17,1058,Owners Summary,200,OK,Thread Group 1-8,text,true,,14334,7,7,0,0
+2016/06/30 10:56:18,644,Owners Graph,200,OK,Thread Group 1-8,text,true,,54641,7,7,0,0
+2016/06/30 10:56:15,3742,Subsidiary Graph,200,OK,Thread Group 1-9,text,true,,2169383,7,7,0,0
+2016/06/30 10:56:19,567,Subsidiary Summary,200,OK,Thread Group 1-8,text,true,,13316,7,7,0,0
+2016/06/30 10:56:19,565,Subsidiary Graph,200,OK,Thread Group 1-8,text,true,,42919,7,7,0,0
+2016/06/30 10:56:19,737,Entity Details,200,OK,Thread Group 1-9,text,true,,27718,7,7,0,0
+2016/06/30 10:56:20,618,Entity Details,200,OK,Thread Group 1-8,text,true,,6566,7,7,0,0
+2016/06/30 10:56:20,778,Group Structure Summary,200,OK,Thread Group 1-8,text,true,,18856,7,7,0,0
+2016/06/30 10:56:20,1932,UBO- Loading Login Page,200,OK,Thread Group 1-7,text,true,,4135,7,7,0,0
+2016/06/30 10:56:21,854,Group Structure Graph,200,OK,Thread Group 1-8,text,true,,86862,7,7,0,0
+2016/06/30 10:56:22,1646,UBO-Log into application,200,OK,Thread Group 1-7,text,true,,4136,6,6,0,0
+2016/06/30 10:56:20,4212,Group Structure Summary,200,OK,Thread Group 1-9,text,true,,1029808,6,6,0,0
+2016/06/30 10:56:24,1050,Owners Summary,200,OK,Thread Group 1-7,text,true,,10857,6,6,0,0
+2016/06/30 10:56:25,2964,Owners Graph,200,OK,Thread Group 1-7,text,true,,534780,6,6,0,0
+2016/06/30 10:56:27,1622,UBO- Loading Login Page,200,OK,Thread Group 1-6,text,true,,4135,6,6,0,0
+2016/06/30 10:56:28,1946,UBO-Log into application,200,OK,Thread Group 1-6,text,true,,4136,6,6,0,0
+2016/06/30 10:56:28,2387,Subsidiary Summary,200,OK,Thread Group 1-7,text,true,,480450,6,6,0,0
+2016/06/30 10:56:24,5599,Group Structure Graph,200,OK,Thread Group 1-9,text,true,,2698970,6,6,0,0
+2016/06/30 10:56:30,1096,Owners Summary,200,OK,Thread Group 1-6,text,true,,14334,5,5,0,0
+2016/06/30 10:56:32,620,Owners Graph,200,OK,Thread Group 1-6,text,true,,55613,5,5,0,0
+2016/06/30 10:56:32,573,Subsidiary Summary,200,OK,Thread Group 1-6,text,true,,13316,5,5,0,0
+2016/06/30 10:56:33,604,Subsidiary Graph,200,OK,Thread Group 1-6,text,true,,43009,5,5,0,0
+2016/06/30 10:56:34,635,Entity Details,200,OK,Thread Group 1-6,text,true,,6566,5,5,0,0
+2016/06/30 10:56:34,576,Group Structure Summary,200,OK,Thread Group 1-6,text,true,,18856,5,5,0,0
+2016/06/30 10:56:31,4135,Subsidiary Graph,200,OK,Thread Group 1-7,text,true,,2169383,5,5,0,0
+2016/06/30 10:56:35,826,Group Structure Graph,200,OK,Thread Group 1-6,text,true,,86860,5,5,0,0
+2016/06/30 10:56:35,1570,UBO- Loading Login Page,200,OK,Thread Group 1-5,text,true,,4135,4,4,0,0
+2016/06/30 10:56:36,1304,Entity Details,200,OK,Thread Group 1-7,text,true,,27718,4,4,0,0
+2016/06/30 10:56:36,3513,UBO-Log into application,200,OK,Thread Group 1-5,text,true,,4136,4,4,0,0
+2016/06/30 10:56:40,101,Owners Summary,200,OK,Thread Group 1-5,text,true,,4008,4,4,0,0
+2016/06/30 10:56:37,3909,Group Structure Summary,200,OK,Thread Group 1-7,text,true,,1029808,4,4,0,0
+2016/06/30 10:56:40,2819,Owners Graph,200,OK,Thread Group 1-5,text,true,,534780,4,4,0,0
+2016/06/30 10:56:43,1880,UBO- Loading Login Page,200,OK,Thread Group 1-4,text,true,,4135,4,4,0,0
+2016/06/30 10:56:43,2900,Subsidiary Summary,200,OK,Thread Group 1-5,text,true,,480450,4,4,0,0
+2016/06/30 10:56:41,5035,Group Structure Graph,200,OK,Thread Group 1-7,text,true,,2698970,4,4,0,0
+2016/06/30 10:56:45,2219,UBO-Log into application,200,OK,Thread Group 1-4,text,true,,4136,3,3,0,0
+2016/06/30 10:56:47,1062,Owners Summary,200,OK,Thread Group 1-4,text,true,,14334,3,3,0,0
+2016/06/30 10:56:48,737,Owners Graph,200,OK,Thread Group 1-4,text,true,,55995,3,3,0,0
+2016/06/30 10:56:49,696,Subsidiary Summary,200,OK,Thread Group 1-4,text,true,,13316,3,3,0,0
+2016/06/30 10:56:50,575,Subsidiary Graph,200,OK,Thread Group 1-4,text,true,,42897,3,3,0,0
+2016/06/30 10:56:46,3930,Subsidiary Graph,200,OK,Thread Group 1-5,text,true,,2169383,3,3,0,0
+2016/06/30 10:56:51,552,Entity Details,200,OK,Thread Group 1-4,text,true,,6566,3,3,0,0
+2016/06/30 10:56:51,632,Entity Details,200,OK,Thread Group 1-5,text,true,,27718,3,3,0,0
+2016/06/30 10:56:51,544,Group Structure Summary,200,OK,Thread Group 1-4,text,true,,18856,3,3,0,0
+2016/06/30 10:56:52,1314,Group Structure Graph,200,OK,Thread Group 1-4,text,true,,86826,3,3,0,0
+2016/06/30 10:56:51,2087,UBO- Loading Login Page,200,OK,Thread Group 1-3,text,true,,4135,2,2,0,0
+2016/06/30 10:56:53,2384,UBO-Log into application,200,OK,Thread Group 1-3,text,true,,4136,2,2,0,0
+2016/06/30 10:56:56,540,Owners Summary,200,OK,Thread Group 1-3,text,true,,4008,2,2,0,0
+2016/06/30 10:56:51,4512,Group Structure Summary,200,OK,Thread Group 1-5,text,true,,1029808,2,2,0,0
+2016/06/30 10:56:56,3542,Owners Graph,200,OK,Thread Group 1-3,text,true,,534780,2,2,0,0
+2016/06/30 10:56:56,4956,Group Structure Graph,200,OK,Thread Group 1-5,text,true,,2698970,2,2,0,0
+2016/06/30 10:57:00,2294,Subsidiary Summary,200,OK,Thread Group 1-3,text,true,,480450,1,1,0,0
+2016/06/30 10:57:03,3610,Subsidiary Graph,200,OK,Thread Group 1-3,text,true,,2169383,1,1,0,0
+2016/06/30 10:57:07,569,Entity Details,200,OK,Thread Group 1-3,text,true,,27718,1,1,0,0
+2016/06/30 10:57:08,3827,Group Structure Summary,200,OK,Thread Group 1-3,text,true,,1029808,1,1,0,0
+2016/06/30 10:57:12,4356,Group Structure Graph,200,OK,Thread Group 1-3,text,true,,2698970,1,1,0,0
