@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="2.9" jmeter="3.0 r1743807">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan - UBO Load Test" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -26,7 +26,21 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="KYC Base URL" enabled="true">
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="UAT KYC Base URL" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">kyc-web-live-647924467.us-west-2.elb.amazonaws.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="QA KYC Base URL" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -39,6 +53,17 @@
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
         </ConfigTestElement>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="fids-csv-data-config" enabled="true">
+          <stringProp name="filename">hundredFids.csv</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="variableNames">fid</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">true</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+        </CSVDataSet>
         <hashTree/>
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="KYC Aggregate Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -296,6 +321,48 @@
           <intProp name="RespTimeGraph.graphtitlefondsize">1</intProp>
         </ResultCollector>
         <hashTree/>
+        <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ThreadsStateOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Active Threads Over Time" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <longProp name="interval_grouping">500</longProp>
+          <boolProp name="graph_aggregated">false</boolProp>
+          <stringProp name="include_sample_labels"></stringProp>
+          <stringProp name="exclude_sample_labels"></stringProp>
+          <stringProp name="start_offset"></stringProp>
+          <stringProp name="end_offset"></stringProp>
+          <boolProp name="include_checkbox_state">false</boolProp>
+          <boolProp name="exclude_checkbox_state">false</boolProp>
+        </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
+        <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
@@ -362,10 +429,21 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="userlogin-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="uat-userlogin-csv-data-config" enabled="false">
               <stringProp name="delimiter">,</stringProp>
               <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="filename">userlogin.csv</stringProp>
+              <stringProp name="filename">uatuserlogin.csv</stringProp>
+              <boolProp name="quotedData">true</boolProp>
+              <boolProp name="recycle">true</boolProp>
+              <stringProp name="shareMode">shareMode.all</stringProp>
+              <boolProp name="stopThread">false</boolProp>
+              <stringProp name="variableNames">loginid</stringProp>
+            </CSVDataSet>
+            <hashTree/>
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="qa-userlogin-csv-data-config" enabled="true">
+              <stringProp name="delimiter">,</stringProp>
+              <stringProp name="fileEncoding"></stringProp>
+              <stringProp name="filename">qauserlogin.csv</stringProp>
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <stringProp name="shareMode">shareMode.all</stringProp>
@@ -425,7 +503,7 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TimesVsThreadsGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Login - Response Times vs Threads" enabled="true">
+            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TimesVsThreadsGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Login - Response Times vs Threads" enabled="false">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>
@@ -467,7 +545,7 @@
               <boolProp name="exclude_checkbox_state">false</boolProp>
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Login - Response Times Over Time" enabled="true">
+            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Login - Response Times Over Time" enabled="false">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>
@@ -551,8 +629,17 @@
               <boolProp name="exclude_checkbox_state">false</boolProp>
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1423825854">tokenValue:</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="owners" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="owners-list" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -610,7 +697,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="false">
               <stringProp name="delimiter">,</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="filename">owners.csv</stringProp>
@@ -653,85 +740,6 @@
                 </value>
               </objProp>
               <stringProp name="filename">C:\Users\singirikondas\Desktop\test.xml</stringProp>
-            </ResultCollector>
-            <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
-            <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename">C:\Users\singirikondas\Desktop\test.csv</stringProp>
-              <stringProp name="RespTimeGraph.interval">1000</stringProp>
-              <boolProp name="RespTimeGraph.seriesselection">true</boolProp>
-              <stringProp name="RespTimeGraph.seriesselectionmatchlabel">fid</stringProp>
             </ResultCollector>
             <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Response Times Distribution" enabled="true">
@@ -778,7 +786,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiaries" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiaries-list" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -788,7 +796,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/${subsfid}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -835,7 +843,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="false">
               <stringProp name="filename">subsidiaries.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">subsfid</stringProp>
@@ -847,82 +855,6 @@
             </CSVDataSet>
             <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="subsidiaries-results" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
-            <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Subsidiaries Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
-            <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>
@@ -999,7 +931,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="entity-details" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="entity-details" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1090,48 +1022,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Entity Details Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Entity-Details Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -1174,7 +1064,7 @@
               <boolProp name="exclude_checkbox_state">false</boolProp>
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="entity-details-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="entity-details-csv-data-config" enabled="false">
               <stringProp name="filename">enityDetails.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">fid</stringProp>
@@ -1186,7 +1076,7 @@
             </CSVDataSet>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ultimate-owners" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ultimate-owners-list" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1196,7 +1086,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/ultimateOwners/${ubofid}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/ultimateOwners/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1244,7 +1134,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="owners-results" enabled="true">
+            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="ultimate-owners-results" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>
@@ -1277,48 +1167,6 @@
               </objProp>
               <stringProp name="filename"></stringProp>
             </ResultCollector>
-            <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Ultimate-Owners Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -1362,7 +1210,7 @@
               <boolProp name="exclude_checkbox_state">false</boolProp>
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="false">
               <stringProp name="delimiter">,</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="filename">ubo.csv</stringProp>
@@ -1374,7 +1222,7 @@
             </CSVDataSet>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="groupstructure" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="groupstructure-list" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1384,7 +1232,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/groupStructure/${groupsfid}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/groupStructure/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1431,8 +1279,8 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="groupStructure-csv-data-config" enabled="true">
-              <stringProp name="filename">groupStructure.csv</stringProp>
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="groupStructure-csv-data-config" enabled="false">
+              <stringProp name="filename">hundredFids.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">groupsfid</stringProp>
               <stringProp name="delimiter">,</stringProp>
@@ -1476,48 +1324,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="groupStructure Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Groupstructure -Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -1560,8 +1366,17 @@
               <boolProp name="exclude_checkbox_state">false</boolProp>
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1651850649">{&quot;resource&quot;:&quot;/legalEntity/id/</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiaries-graphs" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiaries-graphs" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1571,7 +1386,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/${subsgraphfid}/?type=graph</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/subsidiaries/${fid}/?type=graph</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1581,7 +1396,7 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="false">
               <stringProp name="filename">subsidiariesGraphs.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">subsgraphfid</stringProp>
@@ -1663,48 +1478,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Subsidiaries Graph Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Subsidiaries Graphs - Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -1748,7 +1521,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="owners-graphs" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="owners-graphs" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1758,7 +1531,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/owners/${ownersgraphfid}/?type=graph</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/owners/${fid}/?type=graph</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1768,7 +1541,7 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="false">
               <stringProp name="delimiter">,</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="filename">ownersGraph.csv</stringProp>
@@ -1850,48 +1623,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Graph Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners-Graphs - Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -1935,7 +1666,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="sidepanel-entitydetails" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="sidepanel-entitydetails" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -1945,7 +1676,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/legalEntities/${entityfid}</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/legalEntities/${fid}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1955,7 +1686,7 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="entity-details-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="entity-details-csv-data-config" enabled="false">
               <stringProp name="filename">enityDetails.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">entityfid</stringProp>
@@ -2037,48 +1768,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Entity Details Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Sidepanel-Entitydetails - Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -2122,7 +1811,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="groupstructure-download" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="groupstructure-pdf-download" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -2132,7 +1821,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/utilities/downloadList?path=%2FlegalEntity%2F${groupsfid}%2Fownership%2FgroupStructure%2Fsummary&amp;fileName=groupStructure_summary.pdf</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/utilities/downloadList?path=%2FlegalEntity%2F${fid}%2Fownership%2FgroupStructure%2Fsummary&amp;fileName=groupStructure_summary.pdf</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2179,7 +1868,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="groupStructure-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="groupStructure-csv-data-config" enabled="false">
               <stringProp name="filename">groupStructure.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">groupsfid</stringProp>
@@ -2224,48 +1913,6 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="groupStructure Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Groupstructure -Response Times Distribution" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
@@ -2309,7 +1956,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ownerslist-download" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ownerslist-pdf-download" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -2367,7 +2014,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="owners-csv-data-config" enabled="false">
               <stringProp name="delimiter">,</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="filename">owners.csv</stringProp>
@@ -2410,85 +2057,6 @@
                 </value>
               </objProp>
               <stringProp name="filename">C:\Users\singirikondas\Desktop\test.xml</stringProp>
-            </ResultCollector>
-            <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
-            <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename">C:\Users\singirikondas\Desktop\test.csv</stringProp>
-              <stringProp name="RespTimeGraph.interval">1000</stringProp>
-              <boolProp name="RespTimeGraph.seriesselection">true</boolProp>
-              <stringProp name="RespTimeGraph.seriesselectionmatchlabel">fid</stringProp>
             </ResultCollector>
             <hashTree/>
             <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesDistributionGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Owners Response Times Distribution" enabled="true">
@@ -2535,7 +2103,7 @@
             </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiarieslist-download" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="subsidiarieslist-pdf-download" enabled="false">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -2545,7 +2113,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/kyc-webapp/api/utilities/downloadList?path=%2FlegalEntity%2F${subsfid}%2Fownership%2Fsubsidiaries%2Fsummary&amp;fileName=subsidiaries_summary.pdf</stringProp>
+            <stringProp name="HTTPSampler.path">/kyc-webapp/api/utilities/downloadList?path=%2FlegalEntity%2F${fid}%2Fownership%2Fsubsidiaries%2Fsummary&amp;fileName=subsidiaries_summary.pdf</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2592,7 +2160,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="true">
+            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="subsidiaries-csv-data-config" enabled="false">
               <stringProp name="filename">subsidiaries.csv</stringProp>
               <stringProp name="fileEncoding"></stringProp>
               <stringProp name="variableNames">subsfid</stringProp>
@@ -2604,82 +2172,6 @@
             </CSVDataSet>
             <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="subsidiaries-results" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
-            <hashTree/>
-            <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Subsidiaries Response Times Over Time" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-              <longProp name="interval_grouping">500</longProp>
-              <boolProp name="graph_aggregated">false</boolProp>
-              <stringProp name="include_sample_labels"></stringProp>
-              <stringProp name="exclude_sample_labels"></stringProp>
-              <stringProp name="start_offset"></stringProp>
-              <stringProp name="end_offset"></stringProp>
-              <boolProp name="include_checkbox_state">false</boolProp>
-              <boolProp name="exclude_checkbox_state">false</boolProp>
-            </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
-            <hashTree/>
-            <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>
