@@ -22,8 +22,8 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">2</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">3000</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">600</stringProp>
         <longProp name="ThreadGroup.start_time">1460479259000</longProp>
         <longProp name="ThreadGroup.end_time">1460479259000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -195,10 +195,10 @@
           <stringProp name="include_sample_labels"></stringProp>
           <stringProp name="exclude_sample_labels"></stringProp>
           <collectionProp name="metricConnections">
-            <collectionProp name="1706795737">
+            <collectionProp name="-399797254">
               <stringProp name="-379022836">10.72.0.163</stringProp>
               <stringProp name="1571004">3450</stringProp>
-              <stringProp name="-274342153">Network I/O</stringProp>
+              <stringProp name="66952">CPU</stringProp>
               <stringProp name="0"></stringProp>
             </collectionProp>
             <collectionProp name="-399797254">
@@ -324,6 +324,7 @@
           </objProp>
           <stringProp name="filename"></stringProp>
           <intProp name="RespTimeGraph.graphtitlefondsize">1</intProp>
+          <stringProp name="RespTimeGraph.interval">1000</stringProp>
         </ResultCollector>
         <hashTree/>
         <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ThreadsStateOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Active Threads Over Time" enabled="true">
@@ -358,7 +359,7 @@
             </value>
           </objProp>
           <stringProp name="filename"></stringProp>
-          <longProp name="interval_grouping">500</longProp>
+          <longProp name="interval_grouping">100</longProp>
           <boolProp name="graph_aggregated">false</boolProp>
           <stringProp name="include_sample_labels"></stringProp>
           <stringProp name="exclude_sample_labels"></stringProp>
@@ -388,6 +389,11 @@
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
+            <intProp name="groupSize">5</intProp>
+            <longProp name="timeoutInMs">0</longProp>
+          </SyncTimer>
+          <hashTree/>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
