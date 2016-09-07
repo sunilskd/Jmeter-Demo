@@ -34,7 +34,7 @@
         </CookieManager>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-          <stringProp name="filename">UBODetailsLarge.csv</stringProp>
+          <stringProp name="filename">UBODetailsMedium.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">username,ownersummary,ownersgraph,subsidiariessummary,subsidiariesgraph,entitydetails,groupstructuresummary,groupsummarygraph,loginpage</stringProp>
           <stringProp name="delimiter">,</stringProp>
@@ -44,7 +44,46 @@
           <stringProp name="shareMode">shareMode.all</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.FirefoxDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig" testname="jp@gc - Firefox Driver Config" enabled="true">
+        <com.googlecode.jmeter.plugins.webdriver.config.InternetExplorerDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.InternetExplorerDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.InternetExplorerDriverConfig" testname="jp@gc - Internet Explorer Driver Config" enabled="false">
+          <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
+          <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
+          <stringProp name="WebDriverConfig.http_host"></stringProp>
+          <intProp name="WebDriverConfig.http_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
+          <stringProp name="WebDriverConfig.https_host"></stringProp>
+          <intProp name="WebDriverConfig.https_port">8080</intProp>
+          <stringProp name="WebDriverConfig.ftp_host"></stringProp>
+          <intProp name="WebDriverConfig.ftp_port">8080</intProp>
+          <stringProp name="WebDriverConfig.socks_host"></stringProp>
+          <intProp name="WebDriverConfig.socks_port">8080</intProp>
+          <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
+          <boolProp name="WebDriverConfig.maximize_browser">true</boolProp>
+          <boolProp name="WebDriverConfig.reset_per_iteration">false</boolProp>
+          <boolProp name="WebDriverConfig.dev_mode">false</boolProp>
+          <stringProp name="InternetExplorerDriverConfig.iedriver_path">C:\Users\shahc1\Desktop\Performance\Drivers\IEDriverServer.exe</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.config.InternetExplorerDriverConfig>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.ChromeDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig" testname="jp@gc - Chrome Driver Config" enabled="true">
+          <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
+          <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
+          <stringProp name="WebDriverConfig.http_host"></stringProp>
+          <intProp name="WebDriverConfig.http_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
+          <stringProp name="WebDriverConfig.https_host"></stringProp>
+          <intProp name="WebDriverConfig.https_port">8080</intProp>
+          <stringProp name="WebDriverConfig.ftp_host"></stringProp>
+          <intProp name="WebDriverConfig.ftp_port">8080</intProp>
+          <stringProp name="WebDriverConfig.socks_host"></stringProp>
+          <intProp name="WebDriverConfig.socks_port">8080</intProp>
+          <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
+          <boolProp name="WebDriverConfig.maximize_browser">true</boolProp>
+          <boolProp name="WebDriverConfig.reset_per_iteration">false</boolProp>
+          <boolProp name="WebDriverConfig.dev_mode">false</boolProp>
+          <stringProp name="ChromeDriverConfig.chromedriver_path">C:\Users\shahc1\Desktop\Performance\Drivers\chromedriver_win32\chromedriver.exe</stringProp>
+          <boolProp name="ChromeDriverConfig.android_enabled">false</boolProp>
+        </com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.FirefoxDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.FirefoxDriverConfig" testname="jp@gc - Firefox Driver Config" enabled="false">
           <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
           <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
           <stringProp name="WebDriverConfig.http_host"></stringProp>
@@ -604,9 +643,16 @@ var conditions = org.openqa.selenium.support.ui.ExpectedConditions
 WDS.sampleResult.sampleStart()
 
 WDS.browser.get([&apos;${subsidiariesgraph}&apos;])
-WDS.sampleResult.sampleStart()
-wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
-wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+java.lang.Thread.sleep(300)
+var spinningWheel = pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)
+if(conditions.attributeToBe(spinningWheel,&apos;style&apos;,&apos;display: none;&apos;))
+    {
+     WDS.sampleResult.sampleEnd()
+    }
+else{
+     wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+     WDS.sampleResult.sampleEnd()
+    }
 WDS.sampleResult.sampleEnd()
 
 </stringProp>
@@ -715,8 +761,16 @@ var conditions = org.openqa.selenium.support.ui.ExpectedConditions
 WDS.sampleResult.sampleStart()
 
 WDS.browser.get([&apos;${entitydetails}&apos;])
-wait.until(conditions.visibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
-wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+java.lang.Thread.sleep(100)
+var spinningWheel = pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)
+if(conditions.attributeToBe(spinningWheel,&apos;style&apos;,&apos;display: none;&apos;))
+    {
+     WDS.sampleResult.sampleEnd()
+    }
+else{
+     wait.until(conditions.invisibilityOfElementLocated(pkg.By.cssSelector(&apos;div.kyc-loading-widget.loader&apos;)))
+     WDS.sampleResult.sampleEnd()
+    }
 WDS.sampleResult.sampleEnd()
 
 
